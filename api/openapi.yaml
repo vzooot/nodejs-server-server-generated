@@ -1,0 +1,57 @@
+openapi: 3.0.2
+info:
+  title: Radio Stations SDK
+  description: Experimental description of the Radio Stations SDK.
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/
+  description: local
+tags:
+- name: Radio Stations
+  description: Radio Stations APIs
+paths:
+  /stations:
+    get:
+      tags:
+      - Stations
+      summary: This is a summary
+      description: This is a description
+      operationId: getAllRadioStations
+      parameters:
+      - name: id
+        in: query
+        description: The id to consume.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: This means ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RadioStationsListDTO'
+                x-content-type: application/json
+      x-swagger-router-controller: Stations
+components:
+  schemas:
+    RadioStationsListDTO:
+      required:
+      - name
+      - url
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the radio station
+        url:
+          type: string
+          description: The streaming url of the radio station
+      description: This is the radio station model
+      example:
+        name: name
+        url: url
